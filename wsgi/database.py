@@ -15,7 +15,7 @@ def dbGlasaj(db, obecanje, opcija):
         db.execute("UPDATE obecanje SET utijeku = utijeku + 1 WHERE id = ?", (obecanje,))
     elif opcija == 3:
         db.execute("UPDATE obecanje SET prekrseno = prekrseno + 1 WHERE id = ?", (obecanje,))
-    #db.commit()
+    db.commit()
     return
 
 def dbPonovnoGlasaj(db, obecanje, staraopcija, opcija):
@@ -32,7 +32,7 @@ def dbPonovnoGlasaj(db, obecanje, staraopcija, opcija):
         db.execute("UPDATE obecanje SET utijeku = utijeku - 1 WHERE id = ?", (obecanje,))
     elif staraopcija == 3:
         db.execute("UPDATE obecanje SET prekrseno = prekrseno - 1 WHERE id = ?", (obecanje,))
-    #db.commit()
+    db.commit()
     return
 
 def dbObecanja(db):
