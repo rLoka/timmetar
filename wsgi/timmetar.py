@@ -21,25 +21,19 @@ recaptcha = ReCaptcha()
 recaptcha.init_app(app)
 
 @app.route('/')
-@app.route('/pocetna')
 def home():
-    if True:#'korisnik' in session:
-        #email = session['korisnik']
-        ministarstva = dbMinInfo(db)
-        obecanja = dbObecanja(db)
-        postojeci = False
-        if session.get('korisnik') != None:
-            postojeci = True
-        return render_template(
-            'index.html',
-            title='Timmetar',
-            year = datetime.now().year,
-            ministarstva = ministarstva,
-            obecanja = obecanja,
-            postojeci = postojeci
-        )
-    else:
-        return redirect (url_for('prijava'))
+    ministarstva = dbMinInfo(db)
+    obecanja = dbObecanja(db)
+    postojeci = False
+    if session.get('korisnik') != None:
+        postojeci = True
+    return render_template(
+        'index.html',
+        title='Timmetar | Praćenje rada Vlade',
+        year = datetime.now().year,
+        ministarstva = ministarstva,
+        obecanja = obecanja,
+        postojeci = postojeci)
 
 @app.route('/prijava', methods=['GET', 'POST'])
 def prijava():
@@ -72,4 +66,4 @@ def vote():
         return jsonify(None)
     
 if __name__ == "__main__":
-	app.run(debug=True)
+    app.run(debug=True)

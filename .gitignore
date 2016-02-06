@@ -5,3 +5,7 @@
 .idea/testing.iml
 .idea/vcs.xml
 .idea/workspace.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/inspectionProfiles/profiles_settings.xml
+wsgi/database.pyc
+wsgi/timmetar.pyc
