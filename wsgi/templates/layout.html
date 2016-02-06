@@ -6,26 +6,33 @@
     <title>Timmetar | Praćenje rada Vlade</title>
     <link rel="stylesheet" type="text/css" href="/static/content/uikit.gradient.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/components/progress.gradient.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/components/sticky.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
     <script src="/static/scripts/jquery-1.10.2.js"></script>
     <script src="/static/scripts/uikit.min.js"></script>
+    <script src="/static/scripts/components/sticky.min.js"></script>
     <script src="/static/scripts/modernizr-2.6.2.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body>
-    <div class="uk-container uk-container-center uk-margin-large-bottom uk-margin-large-top">
+    <nav data-uk-sticky class="navigation">
+        <center><p id="logo"><i class="uk-icon-area-chart"></i> TimMetar</p></center>
+    </nav>
+    <div class="uk-container uk-container-center uk-margin-large-bottom uk-margin-top">
         <!--nav-->
         <div class="container body-content">
             {% block content %}{% endblock %}
-            <hr />
-            <footer>
-                <center>
-                    <p>&copy; {{ year }} - LoL</p>
-                </center>
-            </footer>
         </div>
     </div>
+    <footer>
+            <div class="uk-container uk-container-center uk-text-center">
+                <p>&copy; {{ year }} - LoL</p>
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
+                    <li><a href="http://github.com/uikit/uikit">O projektu</a></li>
+                </ul>
+            </div>
+    </footer>
 
     <script src="/static/scripts/respond.js"></script>
     <script>
