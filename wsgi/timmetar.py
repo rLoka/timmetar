@@ -29,7 +29,6 @@ def home():
         postojeci = True
     return render_template(
         'index.html',
-        title='Timmetar | Praćenje rada Vlade',
         year = datetime.now().year,
         ministarstva = ministarstva,
         obecanja = obecanja,
