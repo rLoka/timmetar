@@ -1,0 +1,102 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+<div class="uk-grid">
+    <div class="uk-width-1-3">
+        <div class="uk-panel uk-panel-box overviewbox">
+            <i class="uk-icon-calendar"></i><strong> Dana u uredu Vlade: 15</strong>
+            <p><i class="uk-icon-clock-o"></i> Još nije započeto: 78/99</p>
+            <div class="uk-progress uk-progress-striped uk-active">
+                <div class="uk-progress-bar" style="width: 80%;"></div>
+            </div>
+            <p><i class="uk-icon-check-square-o"></i> Ostvareno: 10/99</p>
+            <div class="uk-progress uk-progress-success uk-progress-striped uk-active">
+                <div class="uk-progress-bar " style="width: 10%;"></div>
+            </div>
+            <p><i class="uk-icon-bolt"></i> U tijeku: 8/99</p>
+            <div class="uk-progress uk-progress-warning uk-progress-striped uk-active">
+                <div class="uk-progress-bar " style="width: 8%;"></div>
+            </div>
+            <p><i class="uk-icon-times-circle-o"></i> Prekršeno: 3/99</p>
+            <div class="uk-progress uk-progress-danger uk-progress-striped uk-active">
+                <div class="uk-progress-bar " style="width: 3%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="uk-width-2-3">
+        <div class="uk-panel uk-panel-box introbox">
+            <div class="uk-margin-large-top">
+                <p>22. siječnja 2016. u Hrvatskom Saboru izglasano je povjerenje novoj Vladi.</p>
+                <p>Predsjednik Vlade je Tihomir Orešković.</p>
+                <br />
+                <a class="uk-button uk-button-large uk-button-primary" type="button" href="#promises" data-uk-smooth-scroll="{offset: 10}">Pogledaj obećanja</a>
+                <button class="uk-button uk-button-large uk-button-danger" data-uk-modal="{target:'#trackpromises'}" type="button">Sudjeluj u praćenju</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- This is the left vertical tabbed navigation -->
+<div class="uk-grid">
+    <div class="uk-width-1-3">
+        <ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#tab-left-content'}">
+            {% for ministarstvo in ministarstva %}
+            <li><a href="">{{ ministarstvo.naziv }}</a></li>
+            {% endfor %}
+
+        </ul>
+    </div>
+    <div id="promises" class="uk-width-2-3">
+        <ul id="tab-left-content" class="uk-switcher">
+            {% for grupa in obecanja|groupby('id_min') %}
+            <li>
+                <ul class="uk-list">
+                    {% for obecanje in grupa.list%}
+                    <li class="promise">
+                        <blockquote id="{{obecanje.id}}" data-uk-toggle="{target:'#info{{obecanje.id}}'}">{{obecanje.tekst}}</blockquote>
+                        <hr />
+                        <div id="info{{obecanje.id}}" class="uk-hidden">
+                            <p class="data-uk-margin">
+                                <button class="uk-button uk-button-success uk-button-mini vote" action="1" promise="{{obecanje.id}}" type="button">ostvareno je</button>
+                                (<span id="achieved{{obecanje.id}}">{{obecanje.ostvareno}}</span>)
+                                <button class="uk-button uk-button-primary uk-button-mini vote" action="2" promise="{{obecanje.id}}" type="button">u tijeku je</button>
+                                (<span id="inprogress{{obecanje.id}}">{{obecanje.utijeku}}</span>)
+                                <button class="uk-button uk-button-danger uk-button-mini vote" action="3" promise="{{obecanje.id}}" type="button">prekršeno je</button>
+                                (<span id="broken{{obecanje.id}}">{{obecanje.prekrseno}}</span>)
+                            </p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div id="trackpromises" class="uk-modal">
+    <div class="uk-modal-dialog">
+        <a class="uk-modal-close uk-close"></a>
+        <div class="uk-modal-header"><h3>Praćenje obećanja vlade</h3></div>
+        {% if postojeci == True %}
+        <p>Kako biste ocijenili pojedino obećanje Vlade, potrebno je na isto kliknuti, a potom odabrati neku od opcija.</p>
+        <div class="uk-modal-footer">
+            <div class="uk-clearfix">
+                <div class="uk-float-right"><button class="uk-button uk-modal-close" type="button">U redu</button></div>
+            </div>
+        </div>
+        {% else %}
+        <p>Da biste mogli pratiti obećanja Vlade, moramo potvrditi da niste robot. Molimo, označite polje u formi ispod.</p>
+        <form method="post" action="/prijava" id="guestForm">
+            {{ recaptcha }}
+        </form>
+            <div class="uk-modal-footer">
+                <div class="uk-clearfix">
+                    <div class="uk-float-right"><button class="uk-button" form="guestForm" type="submit">Slažem se sa uvjetima korištenja</button></div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

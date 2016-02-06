@@ -1,0 +1,27 @@
+﻿@import url(https://fonts.googleapis.com/css?family=Ubuntu&subset=latin-ext);
+
+.introbox{
+    background-image: url('/static/img/bg.png');
+    background-repeat:no-repeat;
+    background-size:cover;
+    color:#373737;
+    font-family: 'Ubuntu', sans-serif;
+    font-size:x-large;
+    line-height:normal;
+    min-height: 300px;
+    padding-right: 300px;
+    padding-left: 40px;
+}
+
+.overviewbox{
+    min-height: 300px;
+}
+
+blockquote{
+    padding:5px;
+    min-height: 44px;
+}
+blockquote:hover{
+    cursor: pointer;
+    background: #f5f5f5;
+}

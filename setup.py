@@ -1,10 +1,10 @@
 from setuptools import setup
 
-setup(name='YourAppName',
+setup(name='beta',
       version='1.0',
-      description='OpenShift App',
-      author='Your Name',
-      author_email='example@example.com',
+      description='Pracenje rada Vlade',
+      author='Karlo Grlic',
+      author_email='karlogrlicweb@gmail.com',
       url='http://www.python.org/sigs/distutils-sig/',
-#      install_requires=['Django>=1.3'],
+      #install_requires=['Flask==0.10.1'],
      )

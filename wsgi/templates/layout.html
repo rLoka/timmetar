@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="/static/content/uikit.gradient.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/components/progress.gradient.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
+    <script src="/static/scripts/jquery-1.10.2.js"></script>
+    <script src="/static/scripts/uikit.min.js"></script>
+    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+
+<body>
+    <div class="uk-container uk-container-center uk-margin-large-bottom uk-margin-large-top">
+        <!--nav-->
+        <div class="container body-content">
+            {% block content %}{% endblock %}
+            <hr />
+            <footer>
+                <center>
+                    <p>&copy; {{ year }} - LoL</p>
+                </center>
+            </footer>
+        </div>
+    </div>
+
+    <script src="/static/scripts/respond.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("blockquote").click(function (event) {
+                var quoteId = event.target.id;
+                try {
+                    var disqus_config = function () {
+                        this.page.identifier = quoteId;
+                        this.page.url = "http://localhost/" + quoteId;
+                    };
+                    DISQUS.reset({
+                        reload: true,
+                        config: function () {
+                            this.page.identifier = quoteId;
+                            this.page.url = "http://localhost/" + quoteId;
+                        }
+                    });
+                    $("#disqus_thread").remove();
+                }catch(e){
+                }
+                $("#info" + quoteId).append('<div id="disqus_thread"></div>');
+                (function () {
+                    var d = document, s = d.createElement('script');
+
+                    s.src = '//timmetar.disqus.com/embed.js';
+
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            });
+            $(function () {
+                $('button.vote').bind('click', function () {
+                    var postojeci = "{{ postojeci|safe }}";
+                    if(postojeci.localeCompare("False") == 0){
+                        var modal = UIkit.modal("#trackpromises");
+                        if (modal.isActive()) {
+                            modal.hide();
+                        } else {
+                            modal.show();
+                        }
+                    }
+                    else {
+                        $.getJSON('/vote', {
+                            actionId: $(this).attr("action"),
+                            promiseId: $(this).attr("promise")
+                        }, function (data) {
+                            console.log(data);
+                            $("span#achieved" + data.obecanjeId).text(data.ostvareno);
+                            $("span#inprogress" + data.obecanjeId).text(data.utijeku);
+                            $("span#broken" + data.obecanjeId).text(data.prekrseno);
+                        });
+                        return false;
+                    }
+                });
+            });
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
