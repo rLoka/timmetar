@@ -11,7 +11,7 @@ from functools import wraps
 app = Flask(__name__)
 
 #Spajanje na bazu
-db = sqlite3.connect('timdb.db', check_same_thread=False)
+db = sqlite3.connect('/var/lib/openshift/56b6313589f5cf50d7000001/app-root/runtime/repo/wsgi/timdb.db', check_same_thread=False)
 app.secret_key = 'GspIYzGXABPOgAQnmSGxllPRxMhcCmLlZePTQtLehCcowXcvAstLFLHYNKmstRmDGFANwiGolBidnMadrGahdvZKZeiuPxQCYbgm'
 
 app.config['RECAPTCHA_SITE_KEY'] = "6Lc4hxcTAAAAANwUUi-bSCTRvNK3Hx0FOO0BA0gz"
