@@ -15,7 +15,7 @@ db = sqlite3.connect('/var/lib/openshift/56b6313589f5cf50d7000001/app-root/runti
 #db = sqlite3.connect('C://Users//Skywalker//Documents//testing//wsgi//timdb.db', check_same_thread=False)
 app.secret_key = 'GspIYzGXABPOgAQnmSGxllPRxMhcCmLlZePTQtLehCcowXcvAstLFLHYNKmstRmDGFANwiGolBidnMadrGahdvZKZeiuPxQCYbgm'
 
-
+app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['RECAPTCHA_SITE_KEY'] = "6Lc4hxcTAAAAANwUUi-bSCTRvNK3Hx0FOO0BA0gz"
 app.config['RECAPTCHA_SECRET_KEY'] = "6Lc4hxcTAAAAAPRQRHL78EXUS9_PBGyHguebPVgD"
 
